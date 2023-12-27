@@ -52,7 +52,6 @@ public class UserService {
         if(user.isEmpty()){
             throw new UserException("User not found");
         }
-
         return user.get();
     }
 }

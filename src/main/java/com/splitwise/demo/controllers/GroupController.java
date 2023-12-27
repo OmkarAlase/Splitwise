@@ -11,17 +11,20 @@ import com.splitwise.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/groups")
 public class GroupController {
     @Autowired
     private GroupService groupService;
     @Autowired
     private UserController userController;
-    public List<UserDto> getAllUsersByGroupId(int groupId){
+    @GetMapping("/{groupId}")
+    public List<UserDto> getAllUsersByGroupId(@PathVariable int groupId){
         List<User> users = groupService.getAllUsersByGroupId(groupId);
         List<UserDto> list = new ArrayList<>();
         for (User user : users) {
@@ -35,7 +38,8 @@ public class GroupController {
         return list;
     }
 
-    public Response addGroup(AddGroupDto groupDto){
+    @PostMapping("/")
+    public Response addGroup(@RequestBody AddGroupDto groupDto){
         List<User> users = new ArrayList<>();
         for(int id : groupDto.getUsers()){
             UserDto userDto = this.userController.findUserById(id);

@@ -8,13 +8,16 @@ import com.splitwise.demo.models.Transaction;
 import com.splitwise.demo.services.SettleUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Controller
+@RestController
+@RequestMapping("/settle")
 public class SettleUpController {
     @Autowired
     private SettleUpService settleUpService;
-    public SettleUpGroupResponseDto settleGroup(SettleUpGroupRequestDto dto){
+    @PutMapping("/groupSettle")
+    public SettleUpGroupResponseDto settleGroup(@RequestBody SettleUpGroupRequestDto dto){
         List<Transaction> transactions = settleUpService.settleGroup(dto.getGroupId());
         Response response = Response.getSuccessResponse("Settled up successfully.");
         SettleUpGroupResponseDto res = new SettleUpGroupResponseDto();
@@ -23,6 +26,7 @@ public class SettleUpController {
         return res;
     }
 
+    @PutMapping("/userSettle")
     public SettleUpUserResponseDto settleUser(int userId){
         SettleUpUserResponseDto dto = new SettleUpUserResponseDto();
         try {

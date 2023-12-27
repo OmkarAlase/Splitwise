@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ExpenseUserRepository extends JpaRepository<ExpenseUser,Integer> {
-    @Query("select * from expense_user eu " +
+    @Query(value = "select * from expense_user eu " +
             "inner join group_expense ge " +
-            "eu.expense_id != ge.expense_id and eu.user_id = :id")
+            "eu.expense_id != ge.expense_id and eu.user_id = :id",nativeQuery = true)
     public List<ExpenseUser> getAllNonGroupExpenseUser(@Param("id") int id);
 }

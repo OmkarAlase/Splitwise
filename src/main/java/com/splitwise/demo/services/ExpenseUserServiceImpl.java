@@ -21,4 +21,11 @@ public class ExpenseUserServiceImpl implements ExpenseUserService{
         }
         return expenses;
     }
+
+    @Override
+    public ExpenseUser getExpenseUser(int id) {
+        return null;
+    }
+
+
 }
