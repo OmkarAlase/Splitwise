@@ -36,7 +36,7 @@ public class UserService {
 
     @Lock(LockModeType.PESSIMISTIC_READ)
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void login(String username,String password) throws UserException, InterruptedException {
+    public void login(String username,String password) throws UserException {
         Optional<User> user = userRepository.findByUsername(username);
         if(user.isEmpty()){
             throw new UserException("User does not exist.");
@@ -47,11 +47,8 @@ public class UserService {
         }
     }
 
-    public User getUserById(int id) throws UserException {
+    public User getUserById(int id)  {
         Optional<User> user = this.userRepository.findById(id);
-        if(user.isEmpty()){
-            throw new UserException("User not found");
-        }
         return user.get();
     }
 }

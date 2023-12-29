@@ -1,7 +1,7 @@
 package com.splitwise.demo.utils;
 
-import com.splitwise.demo.dtos.ExpenseRequestDto;
-import com.splitwise.demo.dtos.ExpenseResponseDto;
+import com.splitwise.demo.dtos.ExpenseDTO;
+import com.splitwise.demo.dtos.ExpenseUserDTO;
 import com.splitwise.demo.models.Expense;
 import com.splitwise.demo.models.ExpenseType;
 import com.splitwise.demo.models.ExpenseUser;
@@ -25,36 +25,39 @@ public class ExpenseUtils {
         return condensedExpenses;
     }
 
-    public static ExpenseResponseDto mapToExpenseResponseDto(Expense expense){
-        ExpenseResponseDto dto = new ExpenseResponseDto();
-        dto.setId(expense.getId());
-        dto.setAmount(expense.getAmount());
-        dto.setExpenseUsers(ExpenseUserUtils.mapAllToExpenseUserResponseDto(expense.getExpenseUsers()));
-        dto.setCurrency(expense.getCurrency());
-        dto.setDescription(expense.getDescription());
-        dto.setProofUrl(expense.getProofUrl());
-        return dto;
+    public static ExpenseDTO mapToExpenseDTO(Expense expense){
+        ExpenseDTO expenseDTO = new ExpenseDTO();
+        List<ExpenseUserDTO> expenseUserDTOS = ExpenseUserUtils.mapAllToExpenseUserDTO(expense.getExpenseUsers());
+        expenseDTO.setExpenseUsers(expenseUserDTOS);
+        expenseDTO.setAmount(expense.getAmount());
+        expenseDTO.setCurrency(expense.getCurrency());
+        expenseDTO.setDescription(expense.getDescription());
+        expenseDTO.setAddedAt(expense.getAddedAt());
+        expenseDTO.setProofUrl(expense.getProofUrl());
+        expenseDTO.setId(expense.getId());
+        return expenseDTO;
     }
 
-    public static List<ExpenseResponseDto> mapAllToExpenseResponseDto(List<Expense> expenseList){
-        List<ExpenseResponseDto> collect = expenseList.stream().map(expense -> {
-            return ExpenseUtils.mapToExpenseResponseDto(expense);
+    public static List<ExpenseDTO> mapAllToExpenseDTO(List<Expense> expenseList){
+        return expenseList.stream().map(expense -> {
+            return ExpenseUtils.mapToExpenseDTO(expense);
         }).collect(Collectors.toList());
-
-        return collect;
     }
 
-    public static Expense mapToExpense(ExpenseRequestDto expense){
-        Expense expense1 = new Expense();
-        expense1.setId(expense.getId());
-        expense1.setAmount(expense.getAmount());
-        expense1.setCurrency(expense.getCurrency());
-        expense1.setDescription(expense.getDescription());
-        expense1.setProofUrl(expense.getProofUrl());
-        return expense1;
+    public static Expense mapToExpense(ExpenseDTO expenseDTO){
+        Expense expense = new Expense();
+        List<ExpenseUser> expenseUser = ExpenseUserUtils.mapAllToExpenseUser(expenseDTO.getExpenseUsers());
+        expense.setExpenseUsers(expenseUser);
+        expense.setAmount(expenseDTO.getAmount());
+        expense.setCurrency(expenseDTO.getCurrency());
+        expense.setDescription(expenseDTO.getDescription());
+        expense.setAddedAt(expenseDTO.getAddedAt());
+        expense.setProofUrl(expenseDTO.getProofUrl());
+        expense.setId(expenseDTO.getId());
+        return expense;
     }
 
-    public static List<Expense> mapAllToExpense(List<ExpenseRequestDto> expenseList){
+    public static List<Expense> mapAllToExpense(List<ExpenseDTO> expenseList){
         List<Expense> collect = expenseList.stream().map(expense -> {
             return ExpenseUtils.mapToExpense(expense);
         }).collect(Collectors.toList());

@@ -5,8 +5,7 @@ import com.splitwise.demo.commands.CommandRegistry;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+
 
 import java.net.http.HttpClient;
 import java.util.Optional;
