@@ -7,6 +7,7 @@ import com.splitwise.demo.dtos.SettleUpUserResponseDto;
 import com.splitwise.demo.models.Transaction;
 import com.splitwise.demo.services.SettleUpService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +41,10 @@ public class SettleUpController {
             dto.setTransactions(null);
             return dto;
         }
+    }
+
+    @GetMapping("/pending/{userIdA}/{userIdB}")
+    public ResponseEntity<Double> getUserWisePendingAmount(@PathVariable("userIdA") int userIdA,@PathVariable("userIdB") int userIdB){
+        return null;
     }
 }

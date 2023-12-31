@@ -4,10 +4,12 @@ import com.splitwise.demo.dtos.LoginUserRequestDto;
 import com.splitwise.demo.dtos.RegisterUserRequestDto;
 import com.splitwise.demo.dtos.Response;
 import com.splitwise.demo.dtos.UserDto;
+import com.splitwise.demo.models.Transaction;
 import com.splitwise.demo.models.User;
 import com.splitwise.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -57,4 +59,6 @@ public class UserController {
 
         return null;
     }
+
+
 }

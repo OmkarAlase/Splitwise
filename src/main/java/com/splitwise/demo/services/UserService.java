@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,5 +51,9 @@ public class UserService {
     public User getUserById(int id)  {
         Optional<User> user = this.userRepository.findById(id);
         return user.get();
+    }
+
+    public List<User> getAllUsers(){
+        return this.userRepository.findAll();
     }
 }
