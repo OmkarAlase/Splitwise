@@ -9,5 +9,5 @@ import java.util.List;
 public interface ExpenseService {
     Expense getExpense(int id);
     List<Expense> getAllExpense();
-    Expense createExpense(ExpenseDTO expense);
+    Expense createExpense(ExpenseDTO expense,int groupId);
 }

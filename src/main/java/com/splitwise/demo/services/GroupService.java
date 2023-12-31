@@ -9,4 +9,6 @@ import java.util.List;
 public interface GroupService {
     public List<User> getAllUsersByGroupId(int groupId);
     public int addGroup(Group group);
+    public Group getGroup(int id);
+    public Group updateGroup(Group group);
 }

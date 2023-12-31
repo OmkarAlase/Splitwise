@@ -28,8 +28,8 @@ public class ExpenseController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ExpenseDTO> createExpense(@RequestBody ExpenseDTO expenseDTO){
-        Expense expense = this.expenseService.createExpense(expenseDTO);
+    public ResponseEntity<ExpenseDTO> createExpense(@RequestBody ExpenseDTO expenseDTO,@RequestParam("groupId") int groupId){
+        Expense expense = this.expenseService.createExpense(expenseDTO,groupId);
         ExpenseDTO response = ExpenseUtils.mapToExpenseDTO(expense);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

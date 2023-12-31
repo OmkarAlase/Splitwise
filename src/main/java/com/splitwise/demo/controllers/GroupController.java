@@ -8,13 +8,16 @@ import com.splitwise.demo.models.User;
 import com.splitwise.demo.repositories.UserRepository;
 import com.splitwise.demo.services.GroupService;
 import com.splitwise.demo.services.UserService;
+import com.splitwise.demo.utils.GroupUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/groups")
@@ -40,33 +43,16 @@ public class GroupController {
 
     @PostMapping("/")
     public Response addGroup(@RequestBody AddGroupDto groupDto){
-        List<User> users = new ArrayList<>();
-        for(int id : groupDto.getUsers()){
-            UserDto userDto = this.userController.findUserById(id);
-            User user = new User();
-            user.setId(userDto.getId());
-            user.setUsername(userDto.getName());
-            user.setPhoneNo(userDto.getPhoneNo());
-            users.add(user);
-        }
-
-        System.out.println(users);
-        List<User> admins = new ArrayList<>();
-        for(int id : groupDto.getAdmins()){
-            UserDto userDto = this.userController.findUserById(id);
-            User user = new User();
-            user.setId(userDto.getId());
-            user.setUsername(userDto.getName());
-            user.setPhoneNo(userDto.getPhoneNo());
-            admins.add(user);
-        }
-        System.out.println(admins);
-        Group group = new Group();
-        group.setName(groupDto.getName());
-        group.setDescription(groupDto.getDescription());
-        group.setAdmins(admins);
-        group.setUsers(users);
+        Group group = GroupUtils.mapToGroup(groupDto);
         int id = this.groupService.addGroup(group);
         return Response.getSuccessResponse("Group Added Id = " + id);
+    }
+
+    @PutMapping("/")
+    public Response updateGroup(@RequestBody AddGroupDto groupDto){
+        if(Objects.isNull(groupDto.getId())) return Response.getFailureResponse("No Group Found. Invalid or Null Group");
+        Group group= GroupUtils.mapToGroup(groupDto);
+        group = this.groupService.updateGroup(group);
+        return Response.getSuccessResponse("Group Updated Successfully.! group Id = " + group.getId());
     }
 }

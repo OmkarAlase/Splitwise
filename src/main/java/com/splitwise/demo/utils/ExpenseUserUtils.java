@@ -28,6 +28,7 @@ public class ExpenseUserUtils {
         expenseUser.setExpenseType(expenseUserDTO.getExpenseType());
         expenseUser.setUser(expenseUserDTO.getUser());
         expenseUser.setAmount(expenseUserDTO.getAmount());
+
         return expenseUser;
     }
 
