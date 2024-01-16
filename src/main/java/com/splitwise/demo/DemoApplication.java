@@ -26,23 +26,4 @@ public class DemoApplication implements Runnable{
 	}
 
 
-//	@Override
-//	public void run(String... args) throws Exception {
-//		Scanner scanner = new Scanner(System.in);
-//		while(true){
-//			System.out.println("Awaiting input...");
-//			String command = scanner.nextLine();
-//			Optional<Command> executer = CommandRegistry.getInstance().get(command);
-//			if(executer.isEmpty()){
-//				System.out.println("Invalid Command,Please try again..");
-//				continue;
-//			}
-//			Command cmd = executer.get();
-//			try {
-//				cmd.validateAndExecute(command);
-//			} catch (Exception exception){
-//				System.out.println("Invalid Command , please try again..");
-//			}
-//		}
-//	}
 }
