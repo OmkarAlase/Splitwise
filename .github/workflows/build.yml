@@ -1,0 +1,29 @@
+name: Java CI with Code Coverage
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Build with Maven
+      run: mvn -B clean package
+
+    - name: Run tests with coverage
+      run: mvn jacoco:prepare-agent test
+
+    - name: Upload code coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: jacoco
+        path: target/site/jacoco/
